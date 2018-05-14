@@ -6,49 +6,77 @@
         this.disabled = false;
         this.settings = $.extend({}, $.fn.timingfield.defaults, options);
         this.tpl = $($.fn.timingfield.template);
-
+        
         this.init();
     };
-
+    
     TimingField.prototype = {
         init: function () {
-            // remove the secopnds block if not wanted
-            if (!this.settings.hasSeconds) {
-                this.tpl.find('.timingfield_seconds').remove();
-            }
-
             this.elem.after(this.tpl);
             this.elem.hide();
             var timeoutId = 0;
-
+            
             if (this.elem.is(':disabled')) {
                 this.disable();
             }
-
+            
             this.getHours().value = this.tsToHours(this.elem.val());
             this.getMinutes().value = this.tsToMinutes(this.elem.val());
-            if (this.settings.hasSeconds) {
-                this.getSeconds().value = this.tsToSeconds(this.elem.val());
-            }
-
+            this.getSeconds().value = this.tsToSeconds(this.elem.val());
+            
             this.tpl.width(this.settings.width);
             this.tpl.find('.timingfield_hours   .input-group-addon').text(this.settings.hoursText);
             this.tpl.find('.timingfield_minutes .input-group-addon').text(this.settings.minutesText);
             this.tpl.find('.timingfield_seconds .input-group-addon').text(this.settings.secondsText);
-
+            
             // +/- triggers
-            this.tpl.find('.timingfield_hours   .timingfield_next').on('mousedown', $.proxy(this.upHour,    this));
-            this.tpl.find('.timingfield_hours   .timingfield_prev').on('mousedown', $.proxy(this.downHour,  this));
-            this.tpl.find('.timingfield_minutes .timingfield_next').on('mousedown', $.proxy(this.upMin,     this));
-            this.tpl.find('.timingfield_minutes .timingfield_prev').on('mousedown', $.proxy(this.downMin,   this));
-            this.tpl.find('.timingfield_seconds .timingfield_next').on('mousedown', $.proxy(this.upSec,     this));
-            this.tpl.find('.timingfield_seconds .timingfield_prev').on('mousedown', $.proxy(this.downSec,   this));
+			var upHour = $.proxy(this.upHour, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_hours .timingfield_next')
+            .on('mouseup', function() { clearInterval(timeoutId); return false; })
+            .on('mousedown', function(e) {
+               timeoutId = setInterval(upHour, 100); return false;
+             });
+					
+			var downHour = $.proxy(this.downHour, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_hours .timingfield_prev')
+            .on('mouseup', function() { clearInterval(timeoutId); return false; })
+            .on('mousedown', function(e) {
+               timeoutId = setInterval(downHour, 100); return false;
+             });
 
+			var upMin = $.proxy(this.upMin, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_minutes .timingfield_next')
+            .on('mouseup', function() { clearInterval(timeoutId); return false; })
+            .on('mousedown', function(e) {
+               timeoutId = setInterval(upMin, 100); return false;
+             });
+					
+			var downMin = $.proxy(this.downMin, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_minutes .timingfield_prev')
+            .on('mouseup', function() { clearInterval(timeoutId); return false; })
+            .on('mousedown', function(e) {
+               timeoutId = setInterval(downMin, 100); return false;
+             });
+
+			var upSec = $.proxy(this.upSec, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_seconds .timingfield_next')
+            .on('mouseup', function() { clearInterval(timeoutId); return false; })
+            .on('mousedown', function(e) {
+               timeoutId = setInterval(upSec, 100); return false;
+             });
+					
+			var downSec = $.proxy(this.downSec, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_seconds .timingfield_prev')
+            .on('mouseup', function() { clearInterval(timeoutId); return false; })
+            .on('mousedown', function(e) {
+               timeoutId = setInterval(downSec, 100); return false;
+             });
+            
             // input triggers
             this.tpl.find('.timingfield_hours   input').on('keyup', $.proxy(this.inputHour, this));
             this.tpl.find('.timingfield_minutes input').on('keyup', $.proxy(this.inputMin,  this));
             this.tpl.find('.timingfield_seconds input').on('keyup', $.proxy(this.inputSec,  this));
-
+            
             // change on elem
             this.elem.on('change', $.proxy(this.change,  this));
         },
@@ -70,14 +98,15 @@
         tsToSeconds: function(timestamp) {
             return parseInt((timestamp%3600) % 60);
         },
+        hmsToTimestamp: function(h, m, s) {
+            return parseInt(h)*3600 + parseInt(m)*60 + parseInt(s);
+        },
         updateElem: function() {
-            var timestamp = parseInt(this.getHours().value)*3600 + parseInt(this.getMinutes().value)*60;
-
-            if (this.settings.hasSeconds) {
-                timestamp += parseInt(this.getSeconds().value);
-            }
-
-            this.elem.val(timestamp).trigger( "change" ).trigger( "input" );
+            this.elem.val(this.hmsToTimestamp(
+                this.getHours().value,
+                this.getMinutes().value,
+                this.getSeconds().value
+            )).trigger( "change" );
         },
         upHour: function() {
             if (!this.disabled) {
@@ -107,7 +136,7 @@
                     this.getHours().value = this.settings.maxHour;
                 }
             }
-
+            
             this.updateElem();
         },
         upMin: function() {
@@ -122,7 +151,7 @@
                     return true;
                 }
             }
-
+            
             return false;
         },
         downMin: function() {
@@ -137,7 +166,7 @@
                     return true;
                 }
             }
-
+            
             return false;
         },
         inputMin: function() {
@@ -147,7 +176,7 @@
                 } else if (this.getMinutes().value > 59) {
                     this.getMinutes().value = 59;
                 }
-
+                
                 this.updateElem();
             }
         },
@@ -163,7 +192,7 @@
                     return true;
                 }
             }
-
+            
             return false;
         },
         downSec: function() {
@@ -178,7 +207,7 @@
                     return true;
                 }
             }
-
+            
             return false;
         },
         inputSec: function() {
@@ -188,7 +217,7 @@
                 } else if (this.getSeconds().value > 59) {
                     this.getSeconds().value = 59;
                 }
-
+                
                 this.updateElem();
             }
         },
@@ -208,12 +237,12 @@
             }
         },
     };
-
+    
     $.fn.timingfield = function(options) {
         // Iterate and reformat each matched element.
         return this.each(function() {
             var element = $(this);
-
+          
             // Return early if this element already has a plugin instance
             if (element.data('timingfield')) return;
 
@@ -229,34 +258,33 @@
         width:          263,
         hoursText:      'H',
         minutesText:    'M',
-        secondsText:    'S',
-        hasSeconds:     true
+        secondsText:    'S'
     };
-
+        
     $.fn.timingfield.template = '<div class="timingfield">\
         <div class="timingfield_hours">\
-            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-plus"></span></button>\
+            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>\
             <div class="input-group">\
                 <input type="text" class="form-control">\
                 <span class="input-group-addon"></span>\
             </div>\
-            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-minus"></span></button>\
+            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>\
         </div>\
         <div class="timingfield_minutes">\
-            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-plus"></span></button>\
+            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>\
             <span class="input-group">\
                 <input type="text" class="form-control">\
                 <span class="input-group-addon"></span>\
             </span>\
-            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-minus"></span></button>\
+            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>\
         </div>\
         <div class="timingfield_seconds">\
-            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-plus"></span></button>\
+            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>\
             <span class="input-group">\
                 <input type="text" class="form-control">\
                 <span class="input-group-addon"></span>\
             </span>\
-            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-minus"></span></button>\
+            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>\
         </div>\
     </div>';
 
