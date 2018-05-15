@@ -1,8 +1,8 @@
 {
-    "name": "grimmlink/timingfield",
-    "version": "1.0",
+    "name": "fanmixco/timingfield",
+    "version": "1.2.2",
     "description": "A jquery plugin to transform a timestamp field into an hours/minutes/seconds selector.",
-    "homepage": "https://github.com/grimmlink/TimingField",
+    "homepage": "https://fanmixco.github.io/TimingField/",
 	"license": [
 		"MIT"
 	],
@@ -10,10 +10,14 @@
         {
             "name": "Guillaume FREMONT",
             "email": "grimmlink@gmail.com"
+        },
+        {
+            "name": "Federico NAVARRETE",
+            "email": "fanmixco@gmail.com"
         }
     ],
 	"support": {
-		"source": "https://github.com/grimmlink/TimingField/"
+		"source": "https://github.com/fanmixco/TimingField/"
 	},
     "prefer-stable": true,
     "require": {
