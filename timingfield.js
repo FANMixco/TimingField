@@ -1,5 +1,4 @@
-(function( $ ) {
-
+$(function() {
     var TimingField = function(element, options)
     {
         this.elem = $(element);
@@ -30,47 +29,47 @@
             this.tpl.find('.timingfield_seconds .input-group-addon').text(this.settings.secondsText);
             
             // +/- triggers
-	    var upHour = $.proxy(this.upHour, this); // `this` is plugin instace 
-	    this.tpl.find('.timingfield_hours .timingfield_next')
-            .on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
-            .on('mousedown touchstart', function(e) {
-               timeoutId = setInterval(upHour, 100); return false;
-             });
-					
-	    var downHour = $.proxy(this.downHour, this); // `this` is plugin instace 
-	    this.tpl.find('.timingfield_hours .timingfield_prev')
-            .on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
-            .on('mousedown touchstart', function(e) {
-               timeoutId = setInterval(downHour, 100); return false;
-             });
+			var upHour = $.proxy(this.upHour, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_hours .timingfield_next')
+				.on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
+				.on('mousedown touchstart', function(e) {
+				   timeoutId = setInterval(upHour, 100); return false;
+				 });
+						
+			var downHour = $.proxy(this.downHour, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_hours .timingfield_prev')
+				.on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
+				.on('mousedown touchstart', function(e) {
+				   timeoutId = setInterval(downHour, 100); return false;
+				 });
 
-	    var upMin = $.proxy(this.upMin, this); // `this` is plugin instace 
-	    this.tpl.find('.timingfield_minutes .timingfield_next')
-            .on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
-            .on('mousedown touchstart', function(e) {
-               timeoutId = setInterval(upMin, 100); return false;
-             });
-					
-	    var downMin = $.proxy(this.downMin, this); // `this` is plugin instace 
-	    this.tpl.find('.timingfield_minutes .timingfield_prev')
-            .on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
-            .on('mousedown touchstart', function(e) {
-               timeoutId = setInterval(downMin, 100); return false;
-             });
+			var upMin = $.proxy(this.upMin, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_minutes .timingfield_next')
+				.on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
+				.on('mousedown touchstart', function(e) {
+				   timeoutId = setInterval(upMin, 100); return false;
+				 });
+						
+			var downMin = $.proxy(this.downMin, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_minutes .timingfield_prev')
+				.on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
+				.on('mousedown touchstart', function(e) {
+				   timeoutId = setInterval(downMin, 100); return false;
+				 });
 
-	    var upSec = $.proxy(this.upSec, this); // `this` is plugin instace 
-	    this.tpl.find('.timingfield_seconds .timingfield_next')
-            .on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
-            .on('mousedown touchstart', function(e) {
-               timeoutId = setInterval(upSec, 100); return false;
-             });
+			var upSec = $.proxy(this.upSec, this); // `this` is plugin instace 
+			this.tpl.find('.timingfield_seconds .timingfield_next')
+				.on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
+				.on('mousedown touchstart', function(e) {
+				   timeoutId = setInterval(upSec, 100); return false;
+				 });
 					
              var downSec = $.proxy(this.downSec, this); // `this` is plugin instace 
-	     this.tpl.find('.timingfield_seconds .timingfield_prev')
-            .on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
-            .on('mousedown touchstart', function(e) {
-               timeoutId = setInterval(downSec, 100); return false;
-             });
+			 this.tpl.find('.timingfield_seconds .timingfield_prev')
+				.on('mouseup touchend', function() { clearInterval(timeoutId); return false; })
+				.on('mousedown touchstart', function(e) {
+				   timeoutId = setInterval(downSec, 100); return false;
+				 });
             
             // input triggers
             this.tpl.find('.timingfield_hours   input').on('keyup', $.proxy(this.inputHour, this));
@@ -287,5 +286,4 @@
             <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>\
         </div>\
     </div>';
-
-}( jQuery ));
+});
