@@ -8,16 +8,18 @@
         
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" type="text/css" rel="stylesheet" media="screen" />
         <link href="timingfield.css" type="text/css" rel="stylesheet" media="screen" />
-    </head>
-    <body>
-        <input type="text" class="timing" />
-        
-        <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="timingfield.js"></script>
         <script type="text/javascript">
-        jQuery(document).ready(function($) {
-            $(".timing").timingfield();
-        });
+			$(function() {
+				$(".timing").timingfield();
+			});
         </script>
+    </head>
+    <body>
+		<div class="container">
+			<h1>Timing Field</h1>
+			<input type="text" class="timing" />
+		</div>
     </body>
 </html>
