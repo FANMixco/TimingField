@@ -33,14 +33,23 @@ This is the current available configuration :
 
 ```javascript
 $.fn.timingfield.defaults = {
-    maxHour:        23
     width:          263,
     hoursText:      'H',
     minutesText:    'M',
     secondsText:    'S',
-    hasSeconds:     true
+    minutesInterval: 1,
+    value: 0
 };
 ```
+
+Options
+-------
+- **width** is the default value for the controls.
+- **hoursText** is the default text for the hours.
+- **minutesText** is the default text for the minutes.
+- **secondsText** is the default text for the seconds.
+- **minutesInterval** is the possible interval that will increase or decrease the minutes by 1 minute, 5 minutes, etc.
+- **value** is a initializer for the value, it can be between 0 and 86399 seconds, it's defined in seconds.
 
 Usage
 -----
