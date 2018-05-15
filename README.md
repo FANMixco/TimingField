@@ -38,7 +38,7 @@ $.fn.timingfield.defaults = {
     minutesText:    'M',
     secondsText:    'S',
     minutesInterval: 1,
-    value: 0
+    value:           0
 };
 ```
 
