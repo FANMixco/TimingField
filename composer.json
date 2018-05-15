@@ -1,6 +1,6 @@
 {
     "name": "fanmixco/timingfield",
-    "version": "1.2.2",
+    "version": "1.2.2.1",
     "description": "A jquery plugin to transform a timestamp field into an hours/minutes/seconds selector.",
     "homepage": "https://fanmixco.github.io/TimingField/",
 	"license": [
