@@ -109,7 +109,7 @@ $(function() {
         },
         upHour: function() {
             if (!this.disabled) {
-                if (this.getHours().value < this.settings.maxHour) {
+                if (this.getHours().value < 23) {
                     this.getHours().value = parseInt(this.getHours().value) + 1;
                     this.updateElem();
                     return true;
@@ -253,37 +253,62 @@ $(function() {
     };
 
     $.fn.timingfield.defaults = {
-        maxHour:        23,
-        width:          263,
+		minutesInterval: 1,
+        width:          '100%',
+		yearsText:      'Y',
+		daysText:       'D',
         hoursText:      'H',
         minutesText:    'M',
-        secondsText:    'S'
+        secondsText:    'S',
+		useTimestamp: 	true,
+		yearsVisible: 	false,
+		daysVisible: 	false,
+		hoursVisible: 	true,
+		minutesVisible: true,
+		secondsVisible: true,
+		defaultValue:	0
     };
         
-    $.fn.timingfield.template = '<div class="timingfield">\
-        <div class="timingfield_hours">\
-            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>\
-            <div class="input-group">\
-                <input type="text" class="form-control">\
-                <span class="input-group-addon"></span>\
-            </div>\
-            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>\
+    $.fn.timingfield.template = `<div class="timingfield">
+		<div class="timingfield_years">
+            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-addon"></span>
+            </div>
+            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+        </div>
+		<div class="timingfield_days">
+            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-addon"></span>
+            </div>
+            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+        </div>
+        <div class="timingfield_hours">
+            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+            <div class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-addon"></span>
+            </div>
+            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+        </div>
+        <div class="timingfield_minutes">
+            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+            <span class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-addon"></span>
+            </span>
+            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
         </div>\
-        <div class="timingfield_minutes">\
-            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>\
-            <span class="input-group">\
-                <input type="text" class="form-control">\
-                <span class="input-group-addon"></span>\
-            </span>\
-            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>\
-        </div>\
-        <div class="timingfield_seconds">\
-            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>\
-            <span class="input-group">\
-                <input type="text" class="form-control">\
-                <span class="input-group-addon"></span>\
-            </span>\
-            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>\
-        </div>\
-    </div>';
+        <div class="timingfield_seconds">
+            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+            <span class="input-group">
+                <input type="text" class="form-control">
+                <span class="input-group-addon"></span>
+            </span>
+            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+        </div>
+    </div>`;
 });
