@@ -1,7 +1,9 @@
-TimingField
+Timing Field
 =================
 
 A jquery plugin to transform a timestamp field into an hours/minutes/seconds selector.
+
+![preview](Animation.gif)
 
 Requirements
 ------------
@@ -18,7 +20,7 @@ Installation with composer :
     ...
     "require": {
         ...
-        "fanmixco/timingfield": "1.2",
+        "fanmixco/timingfield": "1.2.2",
         ...
     },
     ...
