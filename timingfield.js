@@ -1,3 +1,22 @@
+function getMobileOperatingSystem() {
+    var userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    // Windows Phone must come first because its UA also contains "Android"
+    if (/windows phone/i.test(userAgent)) {
+        return "Windows Phone";
+    }
+
+    if (/android/i.test(userAgent)) {
+        return "Android";
+    }
+
+    // iOS detection from: http://stackoverflow.com/a/9039885/177710
+    if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+        return "iOS";
+    }
+
+    return "unknown";
+}
 $(function() {
     var TimingField = function(element, options) {
         this.elem = $(element);
@@ -318,31 +337,60 @@ $(function() {
         minutesInterval: 1,
         value: 0
     };
-
-    $.fn.timingfield.template = `<div class="timingfield">
-        <div class="timingfield_hours">
-            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
-            <div class="input-group">
-                <input type="text" class="form-control" maxlength="2" />
-                <span class="input-group-addon"></span>
-            </div>
-            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
-        </div>
-        <div class="timingfield_minutes">
-            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
-            <span class="input-group">
-                <input type="text" class="form-control" maxlength="2" />
-                <span class="input-group-addon"></span>
-            </span>
-            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
-        </div>
-        <div class="timingfield_seconds">
-            <button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
-            <span class="input-group">
-                <input type="text" class="form-control" maxlength="2" />
-                <span class="input-group-addon"></span>
-            </span>
-            <button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
-        </div>
-    </div>`;
+	
+	var os = getMobileOperatingSystem();
+    if (os == "iOS" || os == "Android")
+		$.fn.timingfield.template = `<div class="timingfield">
+			<div class="timingfield_hours">
+				<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+				<div class="input-group">
+					<input type="number" min="0" max="23" class="form-control" maxlength="2" />
+					<span class="input-group-addon"></span>
+				</div>
+				<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+			</div>
+			<div class="timingfield_minutes">
+				<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+				<span class="input-group">
+					<input type="number" min="0" max="59" class="form-control" maxlength="2" />
+					<span class="input-group-addon"></span>
+				</span>
+				<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+			</div>
+			<div class="timingfield_seconds">
+				<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+				<span class="input-group">
+					<input type="number" min="0" max="59" class="form-control" maxlength="2" />
+					<span class="input-group-addon"></span>
+				</span>
+				<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+			</div>
+		</div>`;
+	else
+		$.fn.timingfield.template = `<div class="timingfield">
+			<div class="timingfield_hours">
+				<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+				<div class="input-group">
+					<input type="text" class="form-control" maxlength="2" />
+					<span class="input-group-addon"></span>
+				</div>
+				<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+			</div>
+			<div class="timingfield_minutes">
+				<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+				<span class="input-group">
+					<input type="text" class="form-control" maxlength="2" />
+					<span class="input-group-addon"></span>
+				</span>
+				<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+			</div>
+			<div class="timingfield_seconds">
+				<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
+				<span class="input-group">
+					<input type="text" class="form-control" maxlength="2" />
+					<span class="input-group-addon"></span>
+				</span>
+				<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
+			</div>
+		</div>`;
 });
