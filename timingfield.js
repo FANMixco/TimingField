@@ -37,12 +37,12 @@ $(function() {
                 this.disable();
             }
 			
-			if (this.elem.val().length <= 0) {
-				if (this.settings.value > 86399)
-					this.settings.value = 86399;
-				
-				this.elem.val(this.settings.value);
-			}
+	    if (this.elem.val().length <= 0) {
+		if (this.settings.value > 86399)
+			this.settings.value = 86399;
+
+		this.elem.val(this.settings.value);
+	    }
 
             this.getHours().value = this.tsToHours(this.elem.val());
             this.getMinutes().value = this.tsToMinutes(this.elem.val());
