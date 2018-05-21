@@ -338,8 +338,9 @@ $(function() {
         value: 0
     };
 	
-	var os = getMobileOperatingSystem();
+    var os = getMobileOperatingSystem();
     if (os == "iOS" || os == "Android")
+    {
 		$.fn.timingfield.template = `<div class="timingfield">
 			<div class="timingfield_hours">
 				<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
@@ -365,8 +366,21 @@ $(function() {
 				</span>
 				<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
 			</div>
-		</div>`;
-	else
+        </div>`;
+        $.fn.hideKeyboard = function () {
+            var inputs = this.filter("input").attr('readonly', 'readonly'); // Force keyboard to hide on input field.
+            setTimeout(function () {
+                inputs.blur().removeAttr('readonly');  //actually close the keyboard and remove attributes
+            }, 100);
+            return this;
+        };
+    
+        $("input[type=number]").on('keyup', function (e) {
+            if (e.keyCode === 13)
+                $(this).hideKeyboard();
+        });
+    }
+    else
 		$.fn.timingfield.template = `<div class="timingfield">
 			<div class="timingfield_hours">
 				<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
