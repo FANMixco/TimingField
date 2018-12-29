@@ -128,7 +128,7 @@ $(function() {
             // change on elem
             this.elem.on('change', $.proxy(this.change, this));
 
-            $("input:text").keydown(function(e) {
+            $(".time-field").keydown(function(e) {
                 // Allow: backspace, delete, tab, escape, enter and .
                 if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 110, 190]) !== -1 ||
                     // Allow: Ctrl/cmd+A
@@ -385,7 +385,7 @@ $(function() {
 		<div class="timingfield_hours">
 			<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
 			<div class="input-group">
-				<input type="text" class="form-control" maxlength="2" />
+				<input type="text" class="form-control time-field" maxlength="2" />
 				<span class="input-group-addon"></span>
 			</div>
 			<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
@@ -393,7 +393,7 @@ $(function() {
 		<div class="timingfield_minutes">
 			<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
 			<span class="input-group">
-				<input type="text" class="form-control" maxlength="2" />
+				<input type="text" class="form-control time-field" maxlength="2" />
 				<span class="input-group-addon"></span>
 			</span>
 			<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
@@ -401,7 +401,7 @@ $(function() {
 		<div class="timingfield_seconds">
 			<button type="button" class="timingfield_next btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-up"></span></button>
 			<span class="input-group">
-				<input type="text" class="form-control" maxlength="2" />
+				<input type="text" class="form-control time-field" maxlength="2" />
 				<span class="input-group-addon"></span>
 			</span>
 			<button type="button" class="timingfield_prev btn btn-default btn-xs btn-block" tabindex="-1"><span class="glyphicon glyphicon-chevron-down"></span></button>
